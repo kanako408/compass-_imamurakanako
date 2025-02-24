@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterUserRequest; // FormRequestをインポート
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -21,6 +22,8 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    //     ユーザーの 新規登録画面を表示 する。
+    // Subjects モデルを使い、全教科情報を取得し、ビューに渡している。
     public function create()
     {
         $subjects = Subjects::all();
@@ -35,10 +38,15 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    //     新規ユーザー登録の処理 を行う。
+    // トランザクション処理 を使用し、データベースの一貫性を保つ。
+    // 生年月日を Y-m-d 形式に変換。
+    // ユーザー情報を users テーブルに登録。
+    // 生徒（role=4）の場合、subjects テーブルと関連付ける。
+    public function store(RegisterUserRequest $request)
     {
         DB::beginTransaction();
-        try{
+        try {
             $old_year = $request->old_year;
             $old_month = $request->old_month;
             $old_day = $request->old_day;
@@ -57,13 +65,13 @@ class RegisteredUserController extends Controller
                 'role' => $request->role,
                 'password' => bcrypt($request->password)
             ]);
-            if($request->role == 4){
+            if ($request->role == 4) {
                 $user = User::findOrFail($user_get->id);
                 $user->subjects()->attach($subjects);
             }
             DB::commit();
             return view('auth.login.login');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollback();
             return redirect()->route('loginView');
         }

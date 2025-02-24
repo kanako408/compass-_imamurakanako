@@ -20,29 +20,31 @@ use App\Http\Controllers\Authenticated\Users\UsersController;
 |
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::namespace('Authenticated')->group(function(){
-        Route::namespace('Top')->group(function(){
+Route::group(['middleware' => 'auth'], function () {
+    Route::namespace('Authenticated')->group(function () {
+        Route::namespace('Top')->group(function () {
             Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
             Route::get('top', [TopsController::class, 'show'])->name('top.show');
+            // ログイン画面を表示する処理
+            // Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
         });
-        Route::namespace('Calendar')->group(function(){
-            Route::namespace('General')->group(function(){
+        Route::namespace('Calendar')->group(function () {
+            Route::namespace('General')->group(function () {
                 Route::get('calendar/{user_id}', [CalendarController::class, 'show'])->name('calendar.general.show');
                 Route::post('reserve/calendar', [CalendarController::class, 'reserve'])->name('reserveParts');
                 Route::post('delete/calendar', [CalendarController::class, 'delete'])->name('deleteParts');
             });
-            Route::namespace('Admin')->group(function(){
+            Route::namespace('Admin')->group(function () {
                 Route::get('calendar/{user_id}/admin', [CalendarsController::class, 'show'])->name('calendar.admin.show');
                 Route::get('calendar/{date}/{part}', [CalendarsController::class, 'reserveDetail'])->name('calendar.admin.detail');
                 Route::get('setting/{user_id}/admin', [CalendarsController::class, 'reserveSettings'])->name('calendar.admin.setting');
                 Route::post('setting/update/admin', [CalendarsController::class, 'updateSettings'])->name('calendar.admin.update');
             });
         });
-        Route::namespace('BulletinBoard')->group(function(){
+        Route::namespace('BulletinBoard')->group(function () {
             Route::get('bulletin_board/posts/{keyword?}', [PostsController::class, 'show'])->name('post.show');
             Route::get('bulletin_board/input', [PostsController::class, 'postInput'])->name('post.input');
             Route::get('bulletin_board/like', [PostsController::class, 'likeBulletinBoard'])->name('like.bulletin.board');
@@ -57,7 +59,7 @@ Route::group(['middleware' => 'auth'], function(){
             Route::post('like/post/{id}', [PostsController::class, 'postLike'])->name('post.like');
             Route::post('unlike/post/{id}', [PostsController::class, 'postUnLike'])->name('post.unlike');
         });
-        Route::namespace('Users')->group(function(){
+        Route::namespace('Users')->group(function () {
             Route::get('show/users', [UsersController::class, 'showUsers'])->name('user.show');
             Route::get('user/profile/{id}', [UsersController::class, 'userProfile'])->name('user.profile');
             Route::post('user/profile/edit', [UsersController::class, 'userEdit'])->name('user.edit');

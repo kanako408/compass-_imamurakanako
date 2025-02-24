@@ -80,7 +80,9 @@ class Authenticate implements AuthenticatesRequests
     protected function unauthenticated($request, array $guards)
     {
         throw new AuthenticationException(
-            'Unauthenticated.', $guards, $this->redirectTo($request)
+            'Unauthenticated.',
+            $guards,
+            $this->redirectTo($request)
         );
     }
 
@@ -92,6 +94,8 @@ class Authenticate implements AuthenticatesRequests
      */
     protected function redirectTo($request)
     {
-        //
+        if (! $request->expectsJson()) {
+            return route('login'); // login ルートが定義されていればエラーは出ない
+        }
     }
 }
