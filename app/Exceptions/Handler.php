@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -50,6 +51,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        // 認証エラー（ログインタイムアウトなど）の場合、ログイン画面へリダイレクト
+        if ($exception instanceof AuthenticationException) {
+            return redirect()->route('login')->with('error', 'セッションが切れました。再度ログインしてください。');
+        }
+
         return parent::render($request, $exception);
     }
 }
