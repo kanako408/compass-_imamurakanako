@@ -94,8 +94,6 @@ class Authenticate implements AuthenticatesRequests
      */
     protected function redirectTo($request)
     {
-        if (! $request->expectsJson()) {
-            return route('login'); // login ルートが定義されていればエラーは出ない
-        }
+        //
     }
 }
