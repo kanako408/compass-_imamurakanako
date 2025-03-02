@@ -202,6 +202,7 @@ class ViewCollector extends DataCollector implements Renderable, AssetProvider
         }
 
         return [
+            'count' => count($this->templates),
             'nb_templates' => count($this->templates),
             'templates' => $templates,
         ];

@@ -513,6 +513,7 @@ class ComposerStaticInitc71bbe4db8ba969d1d5107da2abb17a2
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\BulletinBoard\\PostFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/BulletinBoard/PostFormRequest.php',
+        'App\\Http\\Requests\\RegisterUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegisterUserRequest.php',
         'App\\Models\\Calendars\\ReserveSettings' => __DIR__ . '/../..' . '/app/Models/Calendars/ReserveSettings.php',
         'App\\Models\\Categories\\MainCategory' => __DIR__ . '/../..' . '/app/Models/Categories/MainCategory.php',
         'App\\Models\\Categories\\SubCategory' => __DIR__ . '/../..' . '/app/Models/Categories/SubCategory.php',
