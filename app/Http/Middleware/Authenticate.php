@@ -18,7 +18,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            return route('loginPost');
         }
     }
 
@@ -35,7 +35,7 @@ class Authenticate extends Middleware
         try {
             return parent::handle($request, $next, ...$guards);
         } catch (AuthenticationException $exception) {
-            return redirect()->route('login')->with('error', 'セッションが切れました。再度ログインしてください。');
+            return redirect()->route('loginPost')->with('error', 'セッションが切れました。再度ログインしてください。');
         }
     }
 }
