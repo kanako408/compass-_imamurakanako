@@ -17,6 +17,6 @@ class Subjects extends Model
     public function users()
     {
         // 'user_id'がSubjectsテーブルの外部キー, 'id'がUsersテーブルの主キー
-        return $this->belongsToMany(User::class, 'subject_user', 'subject_id', 'user_id'); // リレーションの定義
+        return $this->belongsToMany(User::class, 'subject_users', 'subject_id', 'user_id'); // リレーションの定義
     }
 }

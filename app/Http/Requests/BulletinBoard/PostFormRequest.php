@@ -29,7 +29,8 @@ class PostFormRequest extends FormRequest
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'post_title.required' => 'タイトルは必ず入力してください。',
             'post_title.string' => 'タイトルは文字列である必要があります。',
