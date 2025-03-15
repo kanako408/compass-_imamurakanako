@@ -61,7 +61,7 @@ class PostsController extends Controller
         return redirect()->route('post.show');
     }
     // 投稿編集機能
-    public function postEdit(Request $request)
+    public function postEdit(PostFormRequest $request)
     {
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,

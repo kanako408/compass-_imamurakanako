@@ -31,7 +31,7 @@
           <div class="contributor d-flex">
             <p>
               <span>{{ $post->user->over_name }}</span>
-              <span>{{ $post->user->uer_name }}</span>
+              <span>{{ $post->user->under_name }}</span>
               さん
             </p>
             <span class="ml-5">{{ $post->created_at }}</span>
