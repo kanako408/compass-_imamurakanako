@@ -13,9 +13,10 @@ class CreateMainCategoriesTable extends Migration
      */
     public function up()
     {
+        // メインカテゴリーのテーブルです。
         Schema::create('main_categories', function (Blueprint $table) {
             $table->increments('id')->unsigned(); // 自動インクリメントの符号なし整数のプライマリキー
-            $table->string('main_category', 60)->index()->comment('メインカテゴリー名');
+            $table->string('main_category', 100)->index()->comment('メインカテゴリー名');
             $table->timestamps(); // created_at と updated_at を自動で追加
         });
     }

@@ -47,8 +47,8 @@ class PostsController extends Controller
 
     public function postInput()
     {
-        $main_categories = MainCategory::get();
-        return view('authenticated.bulletinboard.post_create', compact('main_categories'));
+        $mainCategories = MainCategory::get();
+        return view('authenticated.bulletinboard.post_create', compact('mainCategories'));
     }
 
     public function postCreate(PostFormRequest $request)
@@ -77,8 +77,36 @@ class PostsController extends Controller
     }
     public function mainCategoryCreate(Request $request)
     {
+        // バリデーション
+        $request->validate([
+            'main_category_name' => 'required|string|max:100|unique:main_categories,main_category'
+        ]);
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
+    }
+
+    public function subCategoryCreate(Request $request)
+    {
+        $request->validate([
+            'main_category_id' => 'required|exists:main_categories,id',
+            'sub_category_name' => 'required|string|max:100|unique:sub_categories,sub_category'
+        ]);
+
+        SubCategory::create([
+            'main_category_id' => $request->main_category_id,
+            'sub_category' => $request->sub_category_name
+        ]);
+
+        return redirect()->route('post.input');
+    }
+    // $mainCategories をビューに渡すアクションメソッド
+    public function showForm()
+    {
+        // メインカテゴリーを取得
+        $mainCategories = MainCategory::all();
+
+        // ビューに渡す
+        return view('your_view_name', compact('mainCategories'));
     }
 
     public function commentCreate(Request $request)

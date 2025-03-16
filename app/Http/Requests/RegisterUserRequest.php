@@ -36,7 +36,7 @@ class RegisterUserRequest extends FormRequest
             'under_name_kana' => ['required', 'string', 'regex:/^[ァ-ヶー]+$/u', 'max:30'],
 
             // メールアドレス
-            'mail_address' => ['required', 'string', 'email', 'max:100', 'unique:users,email'],
+            'mail_address' => ['required', 'string', 'email', 'max:100', 'unique:users,mail_address'],
 
             // 性別（1:男性, 2:女性, 3:その他）
             'sex' => ['required', 'integer', 'in:1,2,3'],
