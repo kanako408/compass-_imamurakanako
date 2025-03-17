@@ -17,25 +17,43 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
-        $posts = Post::with('user', 'postComments')->get();
-        $categories = MainCategory::get();
+        $posts = Post::with('user', 'postComments');
+        $categories = MainCategory::with('subCategories')->get(); // サブカテゴリーも取得
         $like = new Like;
         $post_comment = new Post;
+        //  ① 検索欄にキーワードを入力
         if (!empty($request->keyword)) {
+            $posts = $posts->where(function ($query) use ($request) {
+                $query->where('post_title', 'like', '%' . $request->keyword . '%')
+                    ->orWhere('post', 'like', '%' . $request->keyword . '%')
+                    ->orWhereHas('subCategories', function ($subQuery) use ($request) {
+                        $subQuery->where('sub_category', $request->keyword);
+                    });
+            });
+        }
+        // } else if ($request->category_word) {
+        //     $sub_category = $request->category_word;
+        //     $posts = Post::with('user', 'postComments')->get();
+        // ④ サブカテゴリーをクリック
+        if (!empty($request->sub_category_id)) {
+            // 追加したサブカテゴリー検索処理（変更最小限）
+            $posts = $posts->whereHas('subCategories', function ($subQuery) use ($request) {
+                $subQuery->where('id', $request->sub_category_id);
+            });
+        }
+        // ② いいねした投稿をクリック
+        if ($request->like_posts) {
+            $likes = Auth::user()->likePostId()->pluck('like_post_id'); // 修正get→pluck
             $posts = Post::with('user', 'postComments')
-                ->where('post_title', 'like', '%' . $request->keyword . '%')
-                ->orWhere('post', 'like', '%' . $request->keyword . '%')->get();
-        } else if ($request->category_word) {
-            $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
-        } else if ($request->like_posts) {
-            $likes = Auth::user()->likePostId()->get('like_post_id');
-            $posts = Post::with('user', 'postComments')
-                ->whereIn('id', $likes)->get();
+                ->whereIn('posts.id', $likes)->get(); // ここで `get()` を実行
+
+            // ③ 自分の投稿をクリック
         } else if ($request->my_posts) {
             $posts = Post::with('user', 'postComments')
-                ->where('user_id', Auth::id())->get();
+                ->where('user_id', Auth::id())->get(); // `get()` を追加;
         }
+        // 最終的な検索結果を取得
+        $posts = $posts->get(); // ここで確実に `$posts` はクエリビルダーの状態
         return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 

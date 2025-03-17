@@ -21,9 +21,9 @@ class SubCategory extends Model
         // リレーションの定義
         return $this->belongsTo(MainCategory::class);
     }
-
+    // 中間テーブル (post_sub_categories) 経由で Post を取得
     public function posts()
     {
-        // リレーションの定義
+        return $this->belongsToMany('App\Models\Posts\Post', 'post_sub_categories', 'sub_category_id', 'post_id'); // リレーションの定義
     }
 }
