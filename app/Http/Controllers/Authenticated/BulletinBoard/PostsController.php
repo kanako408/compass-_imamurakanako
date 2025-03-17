@@ -77,20 +77,37 @@ class PostsController extends Controller
     }
     public function mainCategoryCreate(Request $request)
     {
+        // カスタムメッセージの定義
+        $customMessages = [
+            'main_category_name.required' => 'メインカテゴリー名は必須項目です。',
+            'main_category_name.unique' => 'このメインカテゴリー名は既に登録されています。',
+            'main_category_name.max' => 'メインカテゴリー名は最大100文字まで入力できます。',
+        ];
         // バリデーション
         $request->validate([
             'main_category_name' => 'required|string|max:100|unique:main_categories,main_category'
-        ]);
+        ], $customMessages);
+
         MainCategory::create(['main_category' => $request->main_category_name]);
         return redirect()->route('post.input');
     }
 
     public function subCategoryCreate(Request $request)
     {
+        // カスタムメッセージの定義
+        $customMessages = [
+            'main_category_id.required' => 'メインカテゴリーを選択してください。',
+            'main_category_id.exists' => '選択されたメインカテゴリーは存在しません。',
+            'sub_category_name.required' => 'サブカテゴリー名は必須項目です。',
+            'sub_category_name.string' => 'サブカテゴリー名は文字列で入力してください。',
+            'sub_category_name.max' => 'サブカテゴリー名は最大100文字まで入力できます。',
+            'sub_category_name.unique' => 'このサブカテゴリー名は既に登録されています。',
+        ];
+
         $request->validate([
             'main_category_id' => 'required|exists:main_categories,id',
             'sub_category_name' => 'required|string|max:100|unique:sub_categories,sub_category'
-        ]);
+        ], $customMessages);
 
         SubCategory::create([
             'main_category_id' => $request->main_category_id,
