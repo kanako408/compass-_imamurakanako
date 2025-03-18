@@ -21,6 +21,7 @@ class PostsController extends Controller
         $categories = MainCategory::with('subCategories')->get(); // サブカテゴリーも取得
         $like = new Like;
         $post_comment = new Post;
+
         //  ① 検索欄にキーワードを入力
         if (!empty($request->keyword)) {
             $posts = $posts->where(function ($query) use ($request) {
@@ -34,26 +35,27 @@ class PostsController extends Controller
         // } else if ($request->category_word) {
         //     $sub_category = $request->category_word;
         //     $posts = Post::with('user', 'postComments')->get();
+
         // ④ サブカテゴリーをクリック
         if (!empty($request->sub_category_id)) {
             // 追加したサブカテゴリー検索処理（変更最小限）
             $posts = $posts->whereHas('subCategories', function ($subQuery) use ($request) {
-                $subQuery->where('id', $request->sub_category_id);
+                $subQuery->where('sub_categories.id', $request->sub_category_id);
             });
         }
         // ② いいねした投稿をクリック
         if ($request->like_posts) {
             $likes = Auth::user()->likePostId()->pluck('like_post_id'); // 修正get→pluck
-            $posts = Post::with('user', 'postComments')
-                ->whereIn('posts.id', $likes)->get(); // ここで `get()` を実行
+            $posts = $posts->whereIn('posts.id', $likes);
+            // ここで `get()` を実行
 
             // ③ 自分の投稿をクリック
         } else if ($request->my_posts) {
-            $posts = Post::with('user', 'postComments')
-                ->where('user_id', Auth::id())->get(); // `get()` を追加;
+            $posts = $posts->where('posts.user_id', Auth::id());
         }
         // 最終的な検索結果を取得
         $posts = $posts->get(); // ここで確実に `$posts` はクエリビルダーの状態
+
         return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
@@ -76,6 +78,11 @@ class PostsController extends Controller
             'post_title' => $request->post_title,
             'post' => $request->post_body
         ]);
+        // 選択されたサブカテゴリを取得
+        // attach() で post_sub_categories に post_id と sub_category_id を登録する
+        if ($request->has('sub_category_id')) {
+            $post->subCategories()->attach($request->sub_category_id); // 中間テーブルに保存
+        }
         return redirect()->route('post.show');
     }
     // 投稿編集機能

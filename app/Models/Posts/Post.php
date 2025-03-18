@@ -25,9 +25,14 @@ class Post extends Model
         return $this->hasMany('App\Models\Posts\PostComment');
     }
 
+    //     belongsToMany() の設定
+    // 第一引数: 関連するモデル (SubCategory::class)
+    // 第二引数: 中間テーブル名 (post_sub_categories)
+    // 第三引数: post_id (投稿ID)
+    // 第四引数: sub_category_id (サブカテゴリID)
     public function subCategories()
     {
-        return $this->belongsToMany('App\Models\Categories\SubCategory', 'post_sub_categories', 'post_id', 'sub_category_id'); // リレーションの定義
+        return $this->belongsToMany('SubCategory::class', 'post_sub_categories', 'post_id', 'sub_category_id'); // リレーションの定義
     }
 
     // コメント数
