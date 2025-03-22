@@ -41,4 +41,10 @@ class Post extends Model
     {
         return Post::with('postComments')->find($post_id)->postComments();
     }
+    // 投稿のいいね数を取得するメソッド
+
+    public function likeCount()
+    {
+        return $this->hasMany(Like::class, 'like_post_id')->count();
+    }
 }

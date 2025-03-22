@@ -55,7 +55,8 @@ class PostsController extends Controller
         }
         // 最終的な検索結果を取得
         $posts = $posts->get(); // ここで確実に `$posts` はクエリビルダーの状態
-
+        // いいねの数をビューに渡す処理
+        $like = new Like;
         return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
