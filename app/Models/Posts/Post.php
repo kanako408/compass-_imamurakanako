@@ -20,7 +20,7 @@ class Post extends Model
     {
         return $this->belongsTo('App\Models\Users\User');
     }
-
+    // 投稿とコメントのリレーション
     public function postComments()
     {
         return $this->hasMany('App\Models\Posts\PostComment');
@@ -37,9 +37,10 @@ class Post extends Model
     }
 
     // コメント数
-    public function commentCounts($post_id)
+    public function commentCounts()
     {
-        return Post::with('postComments')->find($post_id)->postComments();
+        return $this->postComments()->count();
+        // return Post::with('postComments')->find($post_id)->postComments();
     }
     // 投稿のいいね数を取得するメソッド
 

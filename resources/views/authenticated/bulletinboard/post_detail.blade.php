@@ -6,10 +6,10 @@
           <div class="detail_inner_head">
             <div>
             </div>
-            @if ($errors->any())
+            @if ($errors->hasBag('post'))
             <div class="alert alert-danger">
               <ul>
-                @foreach ($errors->all() as $error)
+                @foreach ($errors->post->all() as $error)
                 <li>※{{ $error }}</li>
                 @endforeach
               </ul>
@@ -58,6 +58,15 @@
     <div class="w-50 p-3">
       <div class="comment_container border m-5">
         <div class="comment_area p-3">
+          @if ($errors->hasBag('comment'))
+          <div class="alert alert-danger">
+            <ul>
+              @foreach ($errors->comment->all() as $error)
+              <li>※{{ $error }}</li>
+              @endforeach
+            </ul>
+          </div>
+          @endif
           <p class="m-0">コメントする</p>
           <textarea class="w-100" name="comment" form="commentRequest"></textarea>
           <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">

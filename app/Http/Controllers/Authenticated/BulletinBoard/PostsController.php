@@ -153,13 +153,21 @@ class PostsController extends Controller
     }
 
     public function commentCreate(Request $request)
-    {
+    { // バリデーションを適用
+        $validated = $request->validate([
+            'comment' => ['required', 'string', 'max:250'],
+        ], [
+            'comment.required' => 'コメントは必須です。',
+            'comment.string'   => 'コメントは文字列で入力してください。',
+            'comment.max'      => 'コメントは250文字以内で入力してください。',
+        ]);
+
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),
             'comment' => $request->comment
         ]);
-        return redirect()->route('post.detail', ['id' => $request->post_id]);
+        return redirect()->route('post.detail', ['id' => $request->post_id])->withErrors($validated, 'comment'); // コメント用のエラーを'session'に保存;
     }
 
     public function myBulletinBoard()
