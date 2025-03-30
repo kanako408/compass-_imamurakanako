@@ -165,7 +165,7 @@ class PostsController extends Controller
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),
-            'comment' => $request->comment
+            'comment' => $request->comment // コメント用のエラーを'session'に保存
         ]);
         return redirect()->route('post.detail', ['id' => $request->post_id])->withErrors($validated, 'comment'); // コメント用のエラーを'session'に保存;
     }
@@ -185,31 +185,20 @@ class PostsController extends Controller
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
     }
 
-    public function postLike(Request $request)
+    public function postLike($id)
     {
-        $user_id = Auth::id();
-        $post_id = $request->post_id;
+        Like::create([
+            'like_user_id' => Auth::id(),
+            'like_post_id' => $id
+        ]);
 
-        $like = new Like;
-
-        $like->like_user_id = $user_id;
-        $like->like_post_id = $post_id;
-        $like->save();
-
-        return response()->json();
+        return redirect()->back();
     }
 
-    public function postUnLike(Request $request)
+    public function postUnLike($id)
     {
-        $user_id = Auth::id();
-        $post_id = $request->post_id;
+        Like::where('like_user_id', Auth::id())->where('like_post_id', $id)->delete();
 
-        $like = new Like;
-
-        $like->where('like_user_id', $user_id)
-            ->where('like_post_id', $post_id)
-            ->delete();
-
-        return response()->json();
+        return redirect()->back();
     }
 }
