@@ -6,12 +6,15 @@
           <div class="detail_inner_head">
             <div>
             </div>
-            @if ($errors->hasBag('default')) <!-- 投稿フォーム用 -->
+            @if ($errors->has('post_title') || $errors->has('post_body')) <!-- 投稿フォーム用 -->
             <div class="alert alert-danger">
               <ul>
-                @foreach ($errors->getBag('default')->all() as $error)
-                <li>※{{ $error }}</li>
-                @endforeach
+                @if ($errors->has('post_title'))
+                <li>※{{ $errors->first('post_title') }}</li>
+                @endif
+                @if ($errors->has('post_body'))
+                <li>※{{ $errors->first('post_body') }}</li>
+                @endif
               </ul>
             </div>
             @endif
@@ -58,12 +61,10 @@
     <div class="w-50 p-3">
       <div class="comment_container border m-5">
         <div class="comment_area p-3">
-          @if ($errors->hasBag('comment')) <!-- コメントフォーム用 -->
+          @if ($errors->has('comment')) <!-- コメントフォーム用 -->
           <div class="alert alert-danger mb-2">
             <ul>
-              @foreach ($errors->getBag('comment')->all() as $error)
-              <li>※{{ $error }}</li>
-              @endforeach
+              <li>※{{ $errors->first('comment') }}</li>
             </ul>
           </div>
           @endif
