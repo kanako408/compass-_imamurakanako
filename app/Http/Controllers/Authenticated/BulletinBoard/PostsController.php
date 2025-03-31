@@ -185,21 +185,33 @@ class PostsController extends Controller
         return view('authenticated.bulletinboard.post_like', compact('posts', 'like'));
     }
 
-    public function postLike($id)
+    public function postLike(Request $request)
     {
-        Like::create([
-            'like_user_id' => Auth::id(),
-            'like_post_id' => $id
-        ]);
+        $user_id = Auth::id();
+        $post_id = $request->post_id;
+
+        $like = new Like;
+
+        $like->like_user_id = $user_id;
+        $like->like_post_id = $post_id;
+        $like->save();
 
 
-        return redirect()->back();
+
+        return response()->json();
     }
 
-    public function postUnLike($id)
+    public function postUnLike(Request $request)
     {
-        Like::where('like_user_id', Auth::id())->where('like_post_id', $id)->delete();
+        $user_id = Auth::id();
+        $post_id = $request->post_id;
 
-        return redirect()->back();
+        $like = new Like;
+
+        $like->where('like_user_id', $user_id)
+            ->where('like_post_id', $post_id)
+            ->delete();
+
+        return response()->json();
     }
 }
