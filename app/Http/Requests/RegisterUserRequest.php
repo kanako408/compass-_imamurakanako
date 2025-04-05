@@ -42,8 +42,6 @@ class RegisterUserRequest extends FormRequest
             'sex' => ['required', 'integer', 'in:1,2,3'],
 
             // 誕生日（有効な日付 & 2000年1月1日以降 & 今日まで）
-            'old_year' => ['required', 'integer', 'between:2000,' . date('Y')],
-            'old_month' => ['required', 'integer', 'between:1,12'],
             'old_day' => [
                 'required',
                 'integer',

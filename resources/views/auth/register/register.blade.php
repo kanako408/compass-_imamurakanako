@@ -148,6 +148,16 @@
           </select>
           <label style="font-size:13px">日</label>
         </div>
+        <!-- 誕生日エラーメッセージ表示 -->
+        @if ($errors->has('old_year'))
+        <p class="text-danger">{{ $errors->first('old_year') }}</p>
+        @endif
+        @if ($errors->has('old_month'))
+        <p class="text-danger">{{ $errors->first('old_month') }}</p>
+        @endif
+        @if ($errors->has('old_day'))
+        <p class="text-danger">{{ $errors->first('old_day') }}</p>
+        @endif
         <div class="mt-3">
           <label class="d-block m-0" style="font-size:13px">役職</label>
           <input type="radio" name="role" class="admin_role role" value="1">
@@ -159,6 +169,9 @@
           <input type="radio" name="role" class="other_role role" value="4">
           <label style="font-size:13px" class="other_role">生徒</label>
         </div>
+        @if ($errors->has('role'))
+        <p class="text-danger">{{ $errors->first('role') }}</p>
+        @endif
         <div class="select_teacher d-none">
           <label class="d-block m-0" style="font-size:13px">選択科目</label>
           @foreach($subjects as $subject)
@@ -174,12 +187,18 @@
             <input type="password" class="border-0 w-100 password" name="password">
           </div>
         </div>
+        @if ($errors->has('password'))
+        <p class="text-danger">{{ $errors->first('password') }}</p>
+        @endif
         <div class="mt-3">
           <label class="d-block m-0" style="font-size:13px">確認用パスワード</label>
           <div class="border-bottom border-primary">
             <input type="password" class="border-0 w-100 password_confirmation" name="password_confirmation">
           </div>
         </div>
+        @if ($errors->has('password_confirmation'))
+        <p class="text-danger">{{ $errors->first('password_confirmation') }}</p>
+        @endif
         <div class="mt-5 text-right">
           <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録" onclick="return confirm('登録してよろしいですか？')">
         </div>
