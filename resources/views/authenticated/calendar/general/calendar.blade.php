@@ -14,27 +14,27 @@
     </div>
   </div>
   <!-- キャンセル確認モーダル -->
-  <div class="modal js-modal">
+  <div class="modal js-modal" id="cancelModal">
     <div class="modal__bg js-modal-close"></div>
     <div class="modal__content">
       <form action="{{ route('deleteParts') }}" method="post">
         <div class="w-100">
-          <div class="modal-inner-title w-50 m-auto">
-            <p class="text-center font-weight-bold">本当にこの予約をキャンセルしますか？</p>
-          </div>
-
           <div class="modal-inner-body w-50 m-auto pt-3 pb-3">
             <p id="modalInfo" class="text-center"></p>
           </div>
 
           <div class="w-50 m-auto edit-modal-btn d-flex justify-content-between">
-            <a class="js-modal-close btn btn-danger d-inline-block">閉じる</a>
+
+            <!-- 閉じるボタン（青、右配置） -->
+            <a class="js-modal-close btn btn-primary d-inline-block" style="color: white;">閉じる</a>
 
             {{-- 日付と部情報はJSで埋める --}}
             <input type="hidden" id="modalDate" name="getData[]" value="">
             <input type="hidden" id="modalPart" name="getPart[]" value="">
 
-            <input type="submit" class="btn btn-primary d-block" value="キャンセルする">
+            <!-- キャンセルボタン（赤、左配置） -->
+            <input type="submit" class="btn btn-danger text-white d-block" value="キャンセルする">
+
           </div>
         </div>
         @csrf

@@ -67,7 +67,7 @@ class CalendarView
           } else {
             // name = "delete_date"＝キャンセルモーダルのボタン
             // キャンセル用のボタンが表示され、押すとその日付の予約が削除される
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>';
+            $html[] = '<button type="button" class="btn btn-danger p-0 w-75 js-cancel-button" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '" data-date="' . $day->everyDay() . '" data-part="' . $day->authReserveDate($day->everyDay())->first()->setting_part . '" data-label="' . $reservePart . '">' . $reservePart . '</button>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
         } else {
