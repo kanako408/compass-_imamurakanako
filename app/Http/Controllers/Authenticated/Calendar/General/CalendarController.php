@@ -25,11 +25,22 @@ class CalendarController extends Controller
         try {
             $getPart = $request->getPart;
             $getDate = $request->getData;
-            $reserveDays = array_filter(array_combine($getDate, $getPart));
+            $reserveDays = [];
+            foreach ($getDate as $index => $date) {
+                if (!empty($getPart[$index])) {
+                    $reserveDays[$date] = $getPart[$index];
+                }
+            }
+
             foreach ($reserveDays as $key => $value) {
-                $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
-                $reserve_settings->decrement('limit_users');
-                $reserve_settings->users()->attach(Auth::id());
+                $reserve_settings = ReserveSettings::where('setting_reserve', $key)
+                    ->where('setting_part', $value)
+                    ->first();
+
+                if ($reserve_settings) {
+                    $reserve_settings->decrement('limit_users');
+                    $reserve_settings->users()->attach(Auth::id());
+                }
             }
             DB::commit();
         } catch (\Exception $e) {
@@ -47,14 +58,22 @@ class CalendarController extends Controller
             $getDate = $request->getData;
             $reserveDays = array_filter(array_combine($getDate, $getPart));
 
+            foreach ($getDate as $index => $date) {
+                if (!empty($getPart[$index])) {
+                    $reserveDays[$date] = $getPart[$index];
+                }
+            }
+
             foreach ($reserveDays as $key => $value) {
                 $reserve_settings = ReserveSettings::where('setting_reserve', $key)
                     ->where('setting_part', $value)
                     ->first();
-                $reserve_settings->increment('limit_users');
-                $reserve_settings->users()->detach(Auth::id());
-            }
 
+                if ($reserve_settings) {
+                    $reserve_settings->increment('limit_users');
+                    $reserve_settings->users()->detach(Auth::id());
+                }
+            }
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
