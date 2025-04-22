@@ -54,7 +54,8 @@ class CalendarView
         $html[] = $day->render();
 
         // 日付送信用 hidden（予約時のズレ防止）
-        $html[] = '<input type="hidden" name="getData[]" value="' . $dayDate . '" form="reserveParts">';
+        // $html[] = '<input type="hidden" name="getData[]" value="' . $dayDate . '" form="reserveParts">';
+
 
         $reserveDays = array_map(function ($d) {
           return \Carbon\Carbon::parse($d)->format('Y-m-d');

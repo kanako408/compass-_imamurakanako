@@ -196,8 +196,6 @@ class PostsController extends Controller
         $like->like_post_id = $post_id;
         $like->save();
 
-
-
         return response()->json();
     }
 
