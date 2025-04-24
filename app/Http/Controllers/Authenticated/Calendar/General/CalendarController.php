@@ -25,22 +25,25 @@ class CalendarController extends Controller
         try {
             $getPart = $request->getPart;
             $getDate = $request->getData;
-            $reserveDays = [];
-            foreach ($getDate as $index => $date) {
-                if (!empty($getPart[$index])) {
-                    $reserveDays[$date] = $getPart[$index];
-                }
-            }
+            $reserveDays = array_filter(array_combine($getDate, $getPart));
+
+            // [];
+            // foreach ($getDate as $index => $date) {
+            //     if (!empty($getPart[$index])) {
+            //         $reserveDays[$date] = $getPart[$index];
+            //     }
+            // }
 
             foreach ($reserveDays as $key => $value) {
-                $reserve_settings = ReserveSettings::where('setting_reserve', $key)
-                    ->where('setting_part', $value)
-                    ->first();
+                $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
 
-                if ($reserve_settings) {
-                    $reserve_settings->decrement('limit_users');
-                    $reserve_settings->users()->attach(Auth::id());
-                }
+                // $reserve_settings = ReserveSettings::where('setting_reserve', $key)
+                //     ->where('setting_part', $value)
+                //     ->first();
+
+                // if ($reserve_settings) {
+                $reserve_settings->decrement('limit_users');
+                $reserve_settings->users()->attach(Auth::id());
             }
             DB::commit();
         } catch (\Exception $e) {
