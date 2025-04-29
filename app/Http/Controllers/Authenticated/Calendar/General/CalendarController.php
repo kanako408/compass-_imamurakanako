@@ -25,6 +25,7 @@ class CalendarController extends Controller
         try {
             $getPart = $request->getPart;
             $getDate = $request->getData;
+            dd($getPart, $getDate);
             $reserveDays = array_filter(array_combine($getDate, $getPart));
 
             // [];

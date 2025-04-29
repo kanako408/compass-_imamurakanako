@@ -13,21 +13,16 @@
             </div>
             <div>
               @if(Auth::user()->is_Like($post->id))
-              <form action="{{ route('post.unlike', ['id' => $post->id]) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-link p-0 border-0">
-                  <i class="fas fa-heart text-danger"></i>
-                </button>
-              </form>
+              <p class="m-0">
+                <i class="fas fa-heart un_like_btn" post_id="{{ $post->id }}"></i>
+                <span class="like_counts{{ $post->id }}">{{ $like->likeCounts($post->id) }}</span>
+              </p>
               @else
-              <form action="{{ route('post.like', ['id' => $post->id]) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-link p-0 border-0">
-                  <i class="fas fa-heart text-secondary"></i>
-                </button>
-              </form>
+              <p class="m-0">
+                <i class="fas fa-heart like_btn" post_id="{{ $post->id }}"></i>
+                <span class="like_counts{{ $post->id }}">{{ $like->likeCounts($post->id) }}</span>
+              </p>
               @endif
-              <span class="like_counts">{{ $post->likeCount() }}</span>
             </div>
           </div>
         </div>

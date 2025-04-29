@@ -84,9 +84,11 @@ class CalendarView
         } else {
           // 予約していない
           if ($dayDate < $today) {
+            $html[] = '<input type="hidden" name="getDate[]" value="' . $dayDate . '" form="reserveParts">';
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           } else {
+            $html[] = '<input type="hidden" name="getDate[]" value="' . $dayDate . '" form="reserveParts">';
             $html[] = $day->selectPart($dayDate);
           }
         }
