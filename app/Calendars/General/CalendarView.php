@@ -44,21 +44,23 @@ class CalendarView
       foreach ($days as $day) {
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
-        $isPast = $day->everyDay() <= $toDay;
+        $isPast = $day->everyDay() < $toDay;
 
         if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
           // グレー背景適用条件★
           // $tdClass = 'calendar-td ' . $day->getClassName();
-          // if ($dayDate < $today) {
-          //   $tdClass .= ' bg-secondary text-white';
+          $html[] = $isPast
+            ? '<td class="calendar-td bg-secondary text-white">'
+            : '<td class="calendar-td">';
           // }
           // $html[] = '<td class="' . $tdClass . '">';
           // $html[] = $day->render();
 
           // 日付送信用 hidden（予約時のズレ防止）
           // $html[] = '<input type="hidden" name="getData[]" value="' . $dayDate . '" form="reserveParts">';
+          // } else {
+          // $html[] = '<td class="calendar-td">';
 
-          $html[] = '<td class="calendar-td">';
         } else {
           $html[] = '<td class="calendar-td ' . $day->getClassName() . '">';
         }
@@ -68,10 +70,6 @@ class CalendarView
         //   return \Carbon\Carbon::parse($d)->format('Y-m-d');
         // }, $day->authReserveDay());
         // ↓★71行目まで
-        // if (in_array($dayDate, $day->authReserveDay())) {
-        //   // 予約あり
-        //   $reservePart = $day->authReserveDate($dayDate)->first()->setting_part;
-
         if (in_array($day->everyDay(), $day->authReserveDay())) {
           $reservePart = $day->authReserveDate($day->everyDay())->first()->setting_part;
           if ($reservePart == 1) {
@@ -81,7 +79,9 @@ class CalendarView
           } else if ($reservePart == 3) {
             $reserveLabel = "リモ3部";
           }
-          if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+          if
+          // ($isPast)
+          ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
             // ↓2行分★
             // if ($dayDate < $today) {
             //   // 過去日の場合はボタンでなく「〇部参加」表記
@@ -99,12 +99,14 @@ class CalendarView
           // 予約対象の日付（Y-m-d形式）を getDate[] に格納して送っている場所
           // everyDay() はそのセルの日付（例：2025-05-02など）を返す
           // ↓9行分コメントアウト★
-          // if ($dayDate < $today) {
-          //   $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
-          //   $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
-          //   $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+          // if
+          // ($isPast)
+          // ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+          // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
+          // $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+          // $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           // } else {
-          //   $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
+          // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
           $html[] = $day->selectPart($day->everyDay());
           //   // <select name="getPart[]"> を出力しているので、ユーザーが選択した「リモ1部」「リモ2部」などが送信される
           // }
