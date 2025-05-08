@@ -99,17 +99,16 @@ class CalendarView
           // 予約対象の日付（Y-m-d形式）を getDate[] に格納して送っている場所
           // everyDay() はそのセルの日付（例：2025-05-02など）を返す
           // ↓9行分コメントアウト★
-          // if
-          // ($isPast)
-          // ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-          // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
-          // $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
-          // $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
-          // } else {
-          // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
-          $html[] = $day->selectPart($day->everyDay());
-          //   // <select name="getPart[]"> を出力しているので、ユーザーが選択した「リモ1部」「リモ2部」などが送信される
-          // }
+          if ($isPast) {
+            // ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+            // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
+            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+            // $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+          } else {
+            // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
+            $html[] = $day->selectPart($day->everyDay());
+            //   // <select name="getPart[]"> を出力しているので、ユーザーが選択した「リモ1部」「リモ2部」などが送信される
+          }
         }
         $html[] = $day->getDate();
         $html[] = '</td>';
