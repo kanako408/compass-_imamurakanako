@@ -25,7 +25,7 @@ class CalendarController extends Controller
         try {
             $getPart = $request->getPart; // 各日付に対してユーザーが選択した部（1〜3部）
             $getDate = $request->getData; // 各日付（YYYY-MM-DD形式）
-            dd($getPart, $getDate); // デバッグ用：選択された部と日付を表示して止まる（本番では削除）
+            // dd($getPart, $getDate); // デバッグ用：選択された部と日付を表示して止まる（本番では削除）
 
             // 日付と部の配列を結合し、空でない組み合わせだけ抽出（予約されている日付のみ）
             $reserveDays = array_filter(array_combine($getDate, $getPart));

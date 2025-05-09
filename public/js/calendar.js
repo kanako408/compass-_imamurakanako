@@ -7,7 +7,7 @@ $(function () {
     const partLabel = $(this).attr('data-label'); // 例: "リモ2部"
 
     // 表示用のテキスト設定
-    const message = `予約日：${date}<br>時間：${partLabel}<br>上記の予約をキャンセルしてもよろしいですか？`;
+    const message = `予約日：${date}<br>時間：リモ${partLabel}部<br>上記の予約をキャンセルしてもよろしいですか？`;
     $('#modalInfo').html(message);
 
     // フォームに値を挿入
