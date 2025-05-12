@@ -44,13 +44,13 @@ class CalendarView
       foreach ($days as $day) {
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
-        $isPast = $day->everyDay() < $toDay;
+        $isPast = $day->everyDay() <= $toDay;
 
         if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
           // グレー背景適用条件★
           // $tdClass = 'calendar-td ' . $day->getClassName();
           $html[] = $isPast
-            ? '<td class="calendar-td bg-secondary text-white">'
+            ? '<td class="calendar-td past-day ">'
             : '<td class="calendar-td">';
           // }
           // $html[] = '<td class="' . $tdClass . '">';
@@ -81,7 +81,7 @@ class CalendarView
           }
           if
           // ($isPast)
-          ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
+          ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
             // ↓2行分★
             // if ($dayDate < $today) {
             //   // 過去日の場合はボタンでなく「〇部参加」表記
@@ -101,7 +101,7 @@ class CalendarView
           // ↓9行分コメントアウト★
           if
           // ($isPast) {
-          ($startDay <= $day->everyDay() && $toDay > $day->everyDay()) {
+          ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
             // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
             $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
