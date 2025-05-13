@@ -57,6 +57,7 @@ li {
 
 .calendar-td {
   min-width: 100px;
+  border: 1px solid #dee2e6;
 }
 
 .day_part {
