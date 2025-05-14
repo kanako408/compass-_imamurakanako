@@ -19,7 +19,7 @@ li {
 /* サイドバー */
 .sidebar {
   width: 150px;
-  height: 100vh;
+  height: 130vh;
   background-color: #03AAD2;
   font-weight: bold;
 }
@@ -78,7 +78,7 @@ li {
 }
 
 .adjust-table-btn {
-  width: 70%;
+  width: 100%;
 }
 
 /* モーダル */

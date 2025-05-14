@@ -1,15 +1,17 @@
 <x-sidebar>
   <div class="vh-100 pt-5" style="background:#ECF1F6;">
     <div class="w-75 m-auto pt-5 pb-5" style="border-radius:5px; background:#FFF;">
-      <div class="w-100 m-auto" style="border-radius:5px;max-width: 1150px;">
+      <div class="w-100 m-auto" style="border-radius:5px;max-width: 830px;">
         <p class="text-center">{{ $calendar->getTitle() }}</p>
-        {!! $calendar->render() !!}
+        <div class="">
+          {!! $calendar->render() !!}
+        </div>
+      </div>
+      <!-- </div> -->
+      <div class="text-right w-100 m-auto" style="max-width: 830px;">
+        <input type="submit" class="btn btn-primary" value="予約する" form="reserveParts">
       </div>
     </div>
-  </div>
-  <div class="text-right w-100 m-auto max-width: 1150px;">
-    <input type="submit" class="btn btn-primary" value="予約する" form="reserveParts">
-  </div>
   </div>
   <!-- キャンセル確認モーダル -->
   <div class="modal js-modal" id="cancelModal">
