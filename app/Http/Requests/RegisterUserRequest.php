@@ -97,6 +97,7 @@ class RegisterUserRequest extends FormRequest
             'old_month.required' => '生月を入力してください。',
             'old_month.between' => '生月は1から12の間で入力してください。',
             'old_day.required' => '生日を入力してください。',
+            'old_day.integer' => '生日は整数で入力してください。',
 
             // 役割
             'role.required' => '権限を選択してください。',

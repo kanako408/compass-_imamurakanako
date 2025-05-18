@@ -293,3 +293,19 @@ img {
 .subject_inner {
   display: none;
 }
+
+/* 新規登録 */
+.custom-select2 {
+  border: none;
+  border-bottom: 2px solid #007bff;
+  /* 青い下線 */
+  background-color: transparent;
+  outline: none;
+  width: 100px;
+}
+
+.custom-select2:focus {
+  outline: none;
+  border-bottom: 2px solid #0056b3;
+  /* フォーカス時は色濃く */
+}
