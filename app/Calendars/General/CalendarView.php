@@ -45,25 +45,43 @@ class CalendarView
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
         $isPast = $day->everyDay() <= $toDay;
+        $weekDay = Carbon::parse($day->everyDay())->format('N'); // 1=月, 7=日
 
-        if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-          // グレー背景適用条件★
-          // $tdClass = 'calendar-td ' . $day->getClassName();
-          $html[] = $isPast
-            ? '<td class="calendar-td past-day ">'
-            : '<td class="calendar-td">';
-          // }
-          // $html[] = '<td class="' . $tdClass . '">';
-          // $html[] = $day->render();
+        /// クラスの組み立て
+        $tdClass = 'calendar-td';
 
-          // 日付送信用 hidden（予約時のズレ防止）
-          // $html[] = '<input type="hidden" name="getData[]" value="' . $dayDate . '" form="reserveParts">';
-          // } else {
-          // $html[] = '<td class="calendar-td">';
-
-        } else {
-          $html[] = '<td class="calendar-td ' . $day->getClassName() . '">';
+        if ($weekDay == 6) { // 土曜日
+          $tdClass .= ' day-sat';
         }
+        if ($weekDay == 7) { // 日曜日
+          $tdClass .= ' day-sun';
+        }
+        if ($isPast) { // 過去日判定
+          $tdClass .= ' past-day';
+        }
+
+        // <td> に適用
+        $html[] = '<td class="' . $tdClass . '">';
+
+
+        // if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+        //   // グレー背景適用条件★
+        //   // $tdClass = 'calendar-td ' . $day->getClassName();
+        //   $html[] = $isPast
+        //     ? '<td class="calendar-td past-day ">'
+        //     : '<td class="calendar-td">';
+        // }
+        // $html[] = '<td class="' . $tdClass . '">';
+        // $html[] = $day->render();
+
+        // 日付送信用 hidden（予約時のズレ防止）
+        // $html[] = '<input type="hidden" name="getData[]" value="' . $dayDate . '" form="reserveParts">';
+        // } else {
+        // $html[] = '<td class="calendar-td">';
+
+        // } else {
+        //   $html[] = '<td class="calendar-td ' . $day->getClassName() . '">';
+        // }
         $html[] = $day->render();
         // ↓★67行目まで
         // $reserveDays = array_map(function ($d) {
@@ -103,7 +121,7 @@ class CalendarView
           // ($isPast) {
           ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
             // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';
-            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+            $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px; color: #212529;">受付終了</p>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           } else {
             // $html[] = '<input type="hidden" name="getDate[]" value="' . $day->everyDay() . '" form="reserveParts">';

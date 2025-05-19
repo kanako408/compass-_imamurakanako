@@ -1,7 +1,7 @@
 <x-guest-layout>
 
   <body class="all_content">
-    <img src=" {{ asset('image/atlas-black.png') }} " style="margin-top: 90px;">
+    <img src=" {{ asset('image/atlas-black.png') }} " class="common-img" style="margin-top: 90px;">
     <form action="{{ route('loginPost') }}" method="POST">
       <div class="w-100 d-flex justify-content-center" style="margin-top: 30px;">
         <!-- <div class="w-100 vh-100 d-flex " style="align-items:center; justify-content:center;"> -->

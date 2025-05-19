@@ -17,14 +17,15 @@ li {
 }
 
 /* ログイン */
-img {
+img.common-img {
   width: 10%;
   display: block;
   margin: 10px auto 10px;
 }
 
-.form-group.border {
-  border-radius: 10px;
+.form-group.border,
+.frame-shadow {
+  border-radius: 5px;
   background: #FFF;
   box-shadow: #00000036 5px 5px 10px;
 }
@@ -308,4 +309,10 @@ img {
   outline: none;
   border-bottom: 2px solid #0056b3;
   /* フォーカス時は色濃く */
+}
+
+/* 予約確認詳細 */
+/* 偶数行の背景色を変更 */
+.admin-reserve-detail tbody tr:nth-child(even) {
+  background-color: #e5f6fa;
 }

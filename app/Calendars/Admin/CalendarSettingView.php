@@ -44,12 +44,29 @@ class CalendarSettingView
       foreach ($days as $day) {
         $startDay = $this->carbon->format("Y-m-01");
         $toDay = $this->carbon->format("Y-m-d");
+        $weekDay = Carbon::parse($day->everyDay())->format('N'); // 1=月曜, 7=日曜
+        $isPast = $day->everyDay() <= $toDay;
 
-        if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-          $html[] = '<td class="past-day border">';
-        } else {
-          $html[] = '<td class="border ' . $day->getClassName() . '">';
+        // クラスの組み立て
+        $tdClass = 'border';
+
+        if ($weekDay == 6) { // 土曜日
+          $tdClass .= ' day-sat';
         }
+        if ($weekDay == 7) { // 日曜日
+          $tdClass .= ' day-sun';
+        }
+        if ($isPast) { // 過去日なら past-day を追加
+          $tdClass .= ' past-day';
+        }
+
+        // <td> に適用
+        $html[] = '<td class="' . $tdClass . '">';
+        // if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+        //   $html[] = '<td class="past-day border">';
+        // } else {
+        //   $html[] = '<td class="border ' . $day->getClassName() . '">';
+        // }
         $html[] = $day->render();
         $html[] = '<div class="adjust-area">';
         if ($day->everyDay()) {
