@@ -1,13 +1,21 @@
 <x-sidebar>
   <div class="board_area w-100 border m-auto d-flex">
     <div class="post_view w-75 mt-5">
-      <p class="w-75 m-auto">投稿一覧</p>
+      <p class="w-75 m-auto"></p>
       @foreach($posts as $post)
       <div class="post_area border w-75 m-auto p-3">
-        <p><span>{{ $post->user->over_name }}</span><span class="ml-3">{{ $post->user->under_name }}</span>さん</p>
-        <p><a href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
+        <p class="contributor"><span>{{ $post->user->over_name }}</span><span class="ml-3 ">{{ $post->user->under_name }}</span>さん</p>
+        <p><a class="specific-link" href="{{ route('post.detail', ['id' => $post->id]) }}">{{ $post->post_title }}</a></p>
         <div class="post_bottom_area d-flex">
-          <div class="d-flex post_status">
+          <div class="sub-categories" @if($post->subCategories->isEmpty()) style="display: none;" @endif>
+            @foreach($post->subCategories as $subCategory)
+            @if(!empty($subCategory->sub_category))
+            <span>{{ $subCategory->sub_category }}</span>
+            @endif
+            @endforeach
+          </div>
+          <div class="d-flex post_status " style="color: #999;">
+
             <div class="mr-5">
               <i class="fa fa-comment"></i><span class="comment-counts">{{ $post->postComments->count() }}</span>
             </div>
