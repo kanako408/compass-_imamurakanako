@@ -2,6 +2,8 @@ $(function () {
   $('.main_categories').click(function () {
     var category_id = $(this).attr('category_id');
     $('.category_num' + category_id).slideToggle();
+    // 矢印回転用のクラス切替
+    $(this).toggleClass('open');
   });
 
   $(document).on('click', '.like_btn', function (e) {

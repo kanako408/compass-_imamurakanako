@@ -126,6 +126,7 @@ img.common-img {
 /* 掲示板 */
 .sub_categories {
   display: none;
+  padding-left: 16px;
 }
 
 .post_create_area {
@@ -165,6 +166,131 @@ img.common-img {
 .error_message {
   font-size: 12px;
   color: red;
+}
+
+.btn.post,
+.btn-add {
+  background-color: #03AAD2;
+  width: 100%;
+  color: #fff;
+  border: none;
+  border-radius: .25rem;
+}
+
+.btn-add-detail {
+  background-color: #03AAD2;
+  color: #fff;
+  border: none;
+  border-radius: .25rem;
+  padding: 5px;
+}
+
+.btn-add-delete {
+  background-color: #E2254D;
+  color: #fff;
+  border: none;
+  border-radius: .25rem;
+  padding: 5px;
+}
+
+.toggle-arrow {
+  content: "";
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-image: url('/image/expand_more_black_24dp.svg');
+  /* 実パスに合わせてください */
+  background-size: contain;
+  background-repeat: no-repeat;
+  transition: transform 0.3s ease;
+
+  /* display: inline-block;
+  margin-right: 10px;
+  transition: transform 0.3s ease; */
+}
+
+/* open状態用：jQueryで付与する場合に備えて */
+.main_categories.open .toggle-arrow {
+  transform: rotate(180deg);
+  /* 開いたとき上向きに */
+}
+
+.search-area {
+  width: 100%;
+  padding-bottom: 10px;
+  padding-top: 20px;
+  display: flex;
+
+}
+
+.filter-btn_area {
+  padding-bottom: 20px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+
+}
+
+/* 検索ボタンのスタイル */
+.search-button {
+  background-color: #03AAD2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 0 5px 5px 0;
+  /* 右上と右下だけ角丸 */
+  cursor: pointer;
+  width: auto;
+
+}
+
+/* キーワード入力フィールドの背景色変更 */
+.search-field {
+  background-color: #ECF1F6;
+  border: 1px solid #CCC;
+  padding: 10px;
+  border-radius: 5px 0 0 5px;
+  /* 左上と左下だけ角丸 */
+  /* フィールドの幅調整 (ボタンのサイズに合わせて) */
+  display: inline-block;
+}
+
+.filter-btn {
+  border: none;
+  background: #e17397;
+  background: -webkit-linear-gradient(to left, #d94c7a, #e17397);
+  background: linear-gradient(to left, #d94c7a, #e17397);
+  opacity: 0.75;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s;
+  width: calc(50% - 2px);
+  box-sizing: border-box;
+  padding: 10px 4px;
+  margin-top: 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.more-btn {
+  border: none;
+  background: #eeb12e;
+  background: -webkit-linear-gradient(to left, #e1951a, #eeb12e);
+  background: linear-gradient(to left, #e1951a, #eeb12e);
+  opacity: 0.75;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s;
+  width: calc(50% - 2px);
+  box-sizing: border-box;
+  padding: 10px 4px;
+  margin-top: 10px;
+  font-size: 12px;
+  cursor: pointer;
 }
 
 /* 掲示板 詳細画面 */
@@ -252,6 +378,35 @@ img.common-img {
 .sub_categories li input {
   list-style: none;
   cursor: pointer;
+}
+
+.main_categories {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
+}
+
+/* サブカテゴリもメインカテゴリ風に見せる */
+.sub_categories li {
+  list-style: none;
+}
+
+.sub_categories li button.sub_category_btn {
+  display: block;
+  width: 90%;
+  text-align: left;
+  border: none;
+  padding: 8px 12px;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #ddd;
+  background: #ECF1F6;
+  transition: background-color 0.3s;
 }
 
 /* ユーザー検索 */

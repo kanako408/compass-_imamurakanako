@@ -37,27 +37,36 @@
       </div>
       @endforeach
     </div>
-    <div class="other_area border w-25">
-      <div class="border m-4">
-        <div class=""><a href="{{ route('post.input') }}">投稿</a></div>
-        <div class="">
-          <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest">
-          <input type="submit" value="検索" form="postSearchRequest">
+    <div class="other_area w-25">
+      <div class="m-4">
+        <div class="btn post"><a href="{{ route('post.input') }}">投稿</a></div>
+        <div class="search-area">
+          <input type=" text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest" class="search-field">
+          <input type="submit" value="検索" form="postSearchRequest" class="search-button">
         </div>
-        <input type="submit" name="like_posts" class="category_btn" value="いいねした投稿" form="postSearchRequest">
-        <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
-        <ul>
+        <div class="filter-btn_area">
+          <input type="submit" name="like_posts" class="filter-btn" value="いいねした投稿" form="postSearchRequest">
+          <input type="submit" name="my_posts" class="more-btn" value="自分の投稿" form="postSearchRequest">
+        </div>
+        <ul class="category-area">
+          <p>カテゴリー検索</p>
           @foreach($categories as $category)
-          <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span>
-                <ul>
-                  <!-- サブカテゴリーのボタンをクリックすると、そのサブカテゴリーに属する投稿のみ表示 -->
-                  @foreach($category->subCategories as $sub_category)<button type="submit" name="sub_category_id" value="{{ $sub_category->id }}" form="postSearchRequest">
-                    {{ $sub_category->sub_category }}
-                  </button></li>
+          <li class="main_category_wrap">
+            <div class="main_categories" category_id="{{ $category->id }}">
+              <span class="main_category_name">{{ $category->main_category }}</span>
+              <span class="toggle-arrow" category_id="{{ $category->id }}"></span>
+            </div>
+            <ul class="sub_categories category_num{{ $category->id }}" style="display: none;">
+              @foreach($category->subCategories as $sub_category)
+              <li>
+                <button type="submit" name="sub_category_id" value="{{ $sub_category->id }}" form="postSearchRequest" class="sub_category_btn">
+                  {{ $sub_category->sub_category }}
+                </button>
+              </li>
+              @endforeach
+            </ul>
+          </li>
           @endforeach
-        </ul>
-        </li>
-        @endforeach
         </ul>
       </div>
     </div>

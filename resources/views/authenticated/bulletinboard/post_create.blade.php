@@ -29,7 +29,7 @@
         <textarea class="w-100" form="postCreate" name="post_body">{{ old('post_body') }}</textarea>
       </div>
       <div class="mt-3 text-right">
-        <input type="submit" class="btn btn-primary" value="投稿" form="postCreate">
+        <input type="submit" class="btn-add-detail" value="投稿" form="postCreate">
       </div>
       <form action="{{ route('post.create') }}" method="post" id="postCreate">{{ csrf_field() }}</form>
     </div>
@@ -43,25 +43,25 @@
           @enderror
           <p class="m-0">メインカテゴリー</p>
           <input type="text" class="w-100" name="main_category_name" form="mainCategoryRequest">
-          <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="mainCategoryRequest">
+          <input type="submit" value="追加" class="btn-add" form="mainCategoryRequest" style="margin-top: 10px;">
         </div>
         <!-- サブカテゴリー追加 -->
         <div>
           @error('sub_category_name')
           <p class="error_message">{{ $message }}</p>
           @enderror
-          <p class="m-0">サブカテゴリー</p>
+          <p style="margin-top: 20px;margin-bottom: 0px;">サブカテゴリー</p>
           <div>
-            <select name="main_category_id" form="subCategoryRequest">
-              <option value="">選択してください</option>
+            <select name="main_category_id" form="subCategoryRequest" class="w-100">
+              <option value="">---</option>
               @foreach($mainCategories as $category)
               <option value="{{ $category->id }}">{{ $category->main_category }}</option>
               @endforeach
             </select>
           </div>
-          <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest">
+          <input type="text" class="w-100" name="sub_category_name" form="subCategoryRequest" style="margin-top: 10px;">
         </div>
-        <input type="submit" value="追加" class="w-100 btn btn-primary p-0" form="subCategoryRequest">
+        <input type="submit" value="追加" class="btn-add" form="subCategoryRequest" style="margin-top: 10px;">
       </div>
       <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}</form>
       <form action="{{ route('sub.category.create') }}" method="post" id="subCategoryRequest">{{ csrf_field() }}</form>
