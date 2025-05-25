@@ -39,7 +39,7 @@
     </div>
     <div class="other_area w-25">
       <div class="m-4">
-        <div class="btn post"><a href="{{ route('post.input') }}">投稿</a></div>
+        <div class="btn post"><a href="{{ route('post.input') }}" style="color: #fff;">投稿</a></div>
         <div class="search-area">
           <input type=" text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest" class="search-field">
           <input type="submit" value="検索" form="postSearchRequest" class="search-button">

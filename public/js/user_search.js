@@ -5,5 +5,7 @@ $(function () {
 
   $('.subject_edit_btn').click(function () {
     $('.subject_inner').slideToggle();
+    // 矢印回転用のクラス切替
+    $(this).toggleClass('open');
   });
 });

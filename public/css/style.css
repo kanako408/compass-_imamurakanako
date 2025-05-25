@@ -169,7 +169,8 @@ img.common-img {
 }
 
 .btn.post,
-.btn-add {
+.btn-add,
+.search_btn {
   background-color: #03AAD2;
   width: 100%;
   color: #fff;
@@ -242,7 +243,7 @@ img.common-img {
   border-radius: 0 5px 5px 0;
   /* 右上と右下だけ角丸 */
   cursor: pointer;
-  width: auto;
+  width: 30%;
 
 }
 
@@ -255,6 +256,7 @@ img.common-img {
   /* 左上と左下だけ角丸 */
   /* フィールドの幅調整 (ボタンのサイズに合わせて) */
   display: inline-block;
+  width: 70%;
 }
 
 .filter-btn {
@@ -305,7 +307,7 @@ img.common-img {
 }
 
 .detsail_post {
-  font-size: 12px;
+  font-size: 14px;
   color: #9E9E9E;
 }
 
@@ -413,13 +415,15 @@ img.common-img {
 .reserve_users_area {
   display: flex;
   flex-wrap: wrap;
-  width: 800px;
-  margin: 10px auto;
+  width: 100%;
+  /* width: 800px; */
+  /* margin: 10px auto; */
+  margin: 10px 20px;
   height: 80vh;
   overflow: scroll;
   padding: 10px;
-  background: #FFF;
-  border-radius: 5px;
+  /* background: #FFF; */
+
 }
 
 .reserve_users_area span {
@@ -427,8 +431,15 @@ img.common-img {
 }
 
 .one_person {
-  width: 250px;
-  height: 250px;
+  /* width: 250px; */
+  width: 220px;
+  height: 220px;
+  box-shadow: #00000036 5px 5px 10px;
+  padding: 10px;
+  padding: 15px;
+  background: #FFF;
+  margin: 0 0 15px 15px;
+  border-radius: 5px;
 }
 
 .search_conditions span {
@@ -448,6 +459,44 @@ img.common-img {
 
 .subject_inner {
   display: none;
+}
+
+.tool-container input {
+  width: auto;
+  min-width: 90px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  padding: 10px 12px;
+  border: none;
+  margin: 10px;
+}
+
+.tool-container select {
+  width: 50%;
+  min-width: 90px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  padding: 10px 12px;
+  border: none;
+  margin: 10px;
+}
+
+.search-widget {
+  margin: 10px;
+  color: #3d5797;
+}
+
+.search-form-group {
+  display: flex;
+  flex-direction: column;
+  /* 縦並び */
+  /* margin-bottom: 15px; */
+  /* 要素間に余白を追加 */
+}
+
+.search-form-group label {
+  padding-top: 15px;
+  margin-bottom: auto;
 }
 
 /* 新規登録 */
