@@ -27,7 +27,7 @@
             @endif
             <div>
               @if(Auth::id() === $post->user_id) <!-- 自分の投稿のみ表示 -->
-              <span class=" edit-modal-open btn-add-detail" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}" style="padding-bottom: 8px;">編集</span>
+              <span class=" edit-modal-open btn-add-detail" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
               <form method="POST" action="{{ route('post.delete', ['id' => $post->id]) }}" style="display:inline;">
                 <!-- <a href="{{ route('post.delete', ['id' => $post->id]) }}">削除</a> -->
                 @csrf
@@ -78,8 +78,8 @@
           <p class="m-0">コメントする</p>
           <textarea class="w-100" name="comment" form="commentRequest"></textarea>
           <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">
-          <div class="text-end">
-            <input type="submit" class="btn btn-primary" style="background-color: #03aad2;" form="commentRequest" value="投稿">
+          <div class="" style="display: flex;justify-content: flex-end;">
+            <input type="submit" class="btn btn-primary" form="commentRequest" value="投稿">
           </div>
           <form action="{{ route('comment.create') }}" method="post" id="commentRequest">{{ csrf_field() }}</form>
         </div>
