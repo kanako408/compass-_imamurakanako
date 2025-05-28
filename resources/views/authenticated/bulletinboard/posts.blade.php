@@ -1,5 +1,5 @@
 <x-sidebar>
-  <div class="board_area w-100 border m-auto d-flex">
+  <div class="board_area w-100 m-auto d-flex">
     <div class="post_view w-75 mt-5">
       <p class="w-75 m-auto"></p>
       @foreach($posts as $post)

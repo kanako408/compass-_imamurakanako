@@ -42,6 +42,17 @@ class CalendarSettingView
       $html[] = '<tr class="' . $week->getClassName() . '">';
       $days = $week->getDays();
       foreach ($days as $day) {
+        $tdClass = 'border';
+        // 空白の日かどうかを先に判定
+        if (empty($day->everyDay())) {
+          // 空白セル用クラスを追加
+          $tdClass .= ' day-blank';
+          $html[] = '<td class="' . $tdClass . '">';
+          $html[] = $day->render();  // 空のセル描画
+          $html[] = '</td>';
+          continue; // 以降の処理はスキップ
+        }
+
         $startDay = $this->carbon->format("Y-m-01");
         $toDay = $this->carbon->format("Y-m-d");
         $weekDay = Carbon::parse($day->everyDay())->format('N'); // 1=月曜, 7=日曜

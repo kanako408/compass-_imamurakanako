@@ -2,16 +2,18 @@
 
   <body class="all_content">
     <form action="{{ route('registerPost') }}" method="POST">
-      <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
-        <div class="vh-75 border p-5 form-group" style="width: 500px;">
+      <div class="w-100 py-5 d-flex" style="align-items:center; justify-content:center;">
+        <div class="border form-group" style="width: 430px;padding: 20px 40px;height: auto;">
+          <!-- <div class="container py-5 d-flex justify-content-center">
+        <div class="p-5 form-group" style="max-width: 500px; width: 100%;"> -->
           <div class="register_form">
             @if ($errors->has('over_name'))
-            <p class="text-danger">{{ $errors->first('over_name') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('over_name') }}</p>
             @endif
             @if ($errors->has('under_name'))
-            <p class="text-danger">{{ $errors->first('under_name') }}</p>
+            <p class=" text-danger mb-0" style="font-size:13px">{{ $errors->first('under_name') }}</p>
             @endif
-            <div class="d-flex mt-3" style="justify-content:space-between">
+            <div class="d-flex mt-2" style="justify-content:space-between">
               <div class="" style="width:140px">
                 <label class="d-block m-0" style="font-size:13px">姓</label>
                 <div class="border-bottom border-primary" style="width:140px;">
@@ -28,12 +30,12 @@
               </div>
             </div>
             @if ($errors->has('over_name_kana'))
-            <p class="text-danger">{{ $errors->first('over_name_kana') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('over_name_kana') }}</p>
             @endif
             @if ($errors->has('under_name_kana'))
-            <p class="text-danger">{{ $errors->first('under_name_kana') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('under_name_kana') }}</p>
             @endif
-            <div class="d-flex mt-3" style="justify-content:space-between">
+            <div class="d-flex mt-2" style="justify-content:space-between">
               <div class="" style="width:140px">
                 <label class="d-block m-0" style="font-size:13px">セイ</label>
                 <div class="border-bottom border-primary" style="width:140px;">
@@ -49,9 +51,9 @@
 
               </div>
             </div>
-            <div class="mt-3">
+            <div class="mt-2">
               @if ($errors->has('mail_address'))
-              <p class="text-danger">{{ $errors->first('mail_address') }}</p>
+              <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('mail_address') }}</p>
               @endif
               <label class="m-0 d-block" style="font-size:13px">メールアドレス</label>
               <div class="border-bottom border-primary">
@@ -61,9 +63,9 @@
             </div>
           </div>
           @if ($errors->has('sex'))
-          <p class="text-danger">{{ $errors->first('sex') }}</p>
+          <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('sex') }}</p>
           @endif
-          <div class="mt-3 p-1">
+          <div class="mt-2 p-1">
             <div style="display: flex; justify-content: center;">
               <label style="font-size:13px ;padding-right: 60px;">
                 <input type="radio" name="sex" class="sex" value="1">
@@ -77,16 +79,16 @@
             </div>
           </div>
 
-          <div class="mt-3">
+          <div class="mt-2">
             <!-- 誕生日エラーメッセージ表示 -->
             @if ($errors->has('old_year'))
-            <p class="text-danger">{{ $errors->first('old_year') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('old_year') }}</p>
             @endif
             @if ($errors->has('old_month'))
-            <p class="text-danger">{{ $errors->first('old_month') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('old_month') }}</p>
             @endif
             @if ($errors->has('old_day'))
-            <p class="text-danger">{{ $errors->first('old_day') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('old_day') }}</p>
             @endif
             <label class="d-block m-0 aa" style="font-size:13px">生年月日</label>
             <div class="d-flex justify-content-between flex-wrap">
@@ -174,9 +176,9 @@
             </div>
           </div>
 
-          <div class="mt-3">
+          <div class="mt-2">
             @if ($errors->has('role'))
-            <p class="text-danger">{{ $errors->first('role') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('role') }}</p>
             @endif
             <label class="d-block m-0" style="font-size:13px">役職</label>
             <div class="d-flex justify-content-between flex-wrap role-options">
@@ -208,9 +210,9 @@
             </div>
             @endforeach
           </div>
-          <div class="mt-3">
+          <div class="mt-2">
             @if ($errors->has('password'))
-            <p class="text-danger">{{ $errors->first('password') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('password') }}</p>
             @endif
             <label class="d-block m-0" style="font-size:13px">パスワード</label>
             <div class="border-bottom border-primary">
@@ -218,9 +220,9 @@
             </div>
           </div>
 
-          <div class="mt-3">
+          <div class="mt-2">
             @if ($errors->has('password_confirmation'))
-            <p class="text-danger">{{ $errors->first('password_confirmation') }}</p>
+            <p class="text-danger mb-0" style="font-size:13px">{{ $errors->first('password_confirmation') }}</p>
             @endif
             <label class="d-block m-0" style="font-size:13px">確認用パスワード</label>
             <div class="border-bottom border-primary">
@@ -228,7 +230,7 @@
             </div>
           </div>
 
-          <div class="mt-3 text-right">
+          <div class="mt-2 text-right">
             <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録" onclick="return confirm('登録してよろしいですか？')">
           </div>
           <div class="text-center">

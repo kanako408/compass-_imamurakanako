@@ -42,6 +42,18 @@ class CalendarView
 
       $days = $week->getDays();
       foreach ($days as $day) {
+        $tdClass = 'calendar-td';
+        // 空白の日かどうかを先に判定
+        if (empty($day->everyDay())) {
+          // 空白セル用クラスを追加
+          $tdClass .= ' day-blank';
+          $html[] = '<td class="' . $tdClass . '">';
+          $html[] = $day->render();  // 空のセル描画
+          $html[] = '</td>';
+          continue; // 以降の処理はスキップ
+        }
+
+
         $startDay = $this->carbon->copy()->format("Y-m-01");
         $toDay = $this->carbon->copy()->format("Y-m-d");
         $isPast = $day->everyDay() <= $toDay;
