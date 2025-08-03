@@ -23,7 +23,7 @@
           </div>
           <div class="text-center"
             style="margin-bottom: 20px;">
-            <a href=" {{ route('registerView') }}">新規登録はこちら</a>
+            <a href=" {{ route('registerView') }}">新規登録</a>
           </div>
         </div>
         {{ csrf_field() }}
